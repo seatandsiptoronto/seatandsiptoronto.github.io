@@ -2,73 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cafe Connect - Landing Page</title>
-  <link rel="stylesheet" href="/css/style.css">
-
-  <!-- Google Fonts for Lexend and DynaPuff -->
-  <link href="https://fonts.googleapis.com/css2?family=DynaPuff&family=Lexend&display=swap" rel="stylesheet" />
-
-  <style>
-    nav {
-      background-color: #e5d0b1;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      padding: 1rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      font-family: 'Lexend', sans-serif;
-    }
-
-    nav a {
-      font-weight: 600;
-      padding: 0.6rem 1rem;
-      background-color: #fff6eb;
-      border-radius: 8px;
-      color: #704f38;
-      transition: background-color 0.3s ease;
-      text-decoration: none;
-    }
-
-    nav a:hover {
-      background-color: #f3e2cc;
-    }
-
-    .active-tab {
-      background-color: #704f38;
-      color: white;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seat and Sip Toronto</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&family=Lexend:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
+  <!-- Header -->
   <header>
-    <h1 class="home-header">☕️ Seat and Sip Toronto</h1>
-    <p>Skip the café crawl. Discover open seats at Toronto's best coffee shops in real-time and reserve your perfect spot ✨</p>
+    <h1>☕ Seat and Sip Toronto</h1>
+    <nav>
+      <a href="/register-user/index.html">📝 Register</a>
+      <a href="/login/index.html">🔐 Login</a>
+      <a href="/search-result/index.html">🔍 Search</a>
+      <a href="/my-reservations/index.html">📅 My Reservations</a>
+      <a href="/my-favorites/index.html">❤️ My Favorites</a>
+      <a href="/register-owner/index.html">🏪 Owner Register</a>
+    </nav>
   </header>
 
-  <!-- Navigation Tabs -->
-  <nav>
-    <a href="homepage.html">Homepage</a>
-    <a href="user-registration.html">User Registration</a>
-    <a href="owner-registration.html">Cafe Owner Registration</a>
-    <a href="search-location.html">Search by Location</a>
-    <a href="search-category/index.html">Search by Category</a>
-    <a href="cafe-detail.html">Cafe Detail</a>
-    <a href="my-reservation.html">My Reservation</a>
-  </nav>
-
-  <main class="container">
-    <div class="card center">
-      <h2>This is the Landing Page</h2>
-      <p>Select any tab above to navigate through the app.</p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Savor the Perfect Brew!</h2>
+    <p>Find the coziest cafes around Toronto to sip, study, and share moments. Whether you're a student, remote worker, or cafe lover—we've got your seat!</p>
+    <div class="cta-buttons">
+      <button onclick="window.location.href='/search-result/index.html'">Start Searching</button>
+      <button onclick="window.location.href='/register-user/index.html'">Create Account</button>
     </div>
-  </main>
+  </section>
 
+  <!-- Footer -->
   <footer>
-    <p>Made with love from Toronto 🤎</p>
+    <p>❤️ Made with love from Toronto</p>
   </footer>
 
+  <script src="js/main.js"></script>
 </body>
 </html>
