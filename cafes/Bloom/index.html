@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloon Cafe - Cafe Spot Finder</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../../index.html">Cafe Spot Finder</a></h1>
+        <nav>
+            <a href="../../search/index.html">Search</a>
+            <a href="../../my-favorites/index.html">My Favorites</a>
+            <a href="../../my-reservations/index.html">Reservations</a>
+            <a href="../../login/index.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="cafe-header">
+            <h1>Bloom Cafe</h1>
+            <button class="favorite-btn" onclick="toggleFavorite()">
+                <span class="heart">♡</span> Add to Favorites
+            </button>
+        </section>
+
+        <div class="cafe-info">
+            <div class="basic-info">
+                <h2>Cafe Information</h2>
+                <p>Address: 596 Yonge St, Toronto, ON M4Y 1Z3</p>
+                <p><strong>Phone:</strong> (416) 792-0419</p>
+                <p><strong>Hours:</strong> Monday-Sunday 9:00 AM - 10:00 PM</p>
+                <p><strong>Website:</strong> <a href="https://thebloomcafe.ca/" target="_blank">www.bloomcafe.ca</a></p>
+                <p><strong>About:</strong> A cozy neighborhood cafe serving artisanal coffee and fresh pastries in a warm, welcoming atmosphere perfect for work or relaxation.</p>
+                <p><strong>Amenities:</strong> free Wi-Fi, indoor seating, wheelchair accessibility, and a gender-neutral washroom</p>
+            </div>
+
+            <div class="availability-status">
+                <h3>Current Status</h3>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <span class="status-label">Seats Available:</span>
+                        <span class="status-value available">8/15</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Power Outlets:</span>
+                        <span class="status-value available">5/8</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Noise Level:</span>
+                        <span class="status-value moderate">Moderate</span>
+                    </div>
+                </div>
+                <p class="last-updated">Last updated 5 minutes ago</p>
+            </div>
+        </div>
+
+        <section class="photo-section">
+            <h3>Photo Gallery</h3>
+            <div class="photo-carousel">
+                <button class="carousel-btn prev-btn" onclick="changeImage(-1)">❮</button>
+                <div class="carousel-container">
+                    <img id="carouselImage" src="Interior.webp" alt="Bloom Cafe Interior" onclick="enlargeImage()" />
+                </div>
+                <button class="carousel-btn next-btn" onclick="changeImage(1)">❯</button>
+            </div>
+            <div class="image-counter">
+                <span id="imageCounter">1 / 4</span>
+            </div>
+        </section>
+
+        <!-- Image modal for enlargement -->
+        <div id="imageModal" class="modal" onclick="closeModal()">
+            <span class="modal-close">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+
+        <section class="reservation-section">
+            <button class="reservation-btn" onclick="makeReservation()">
+                Make Reservation
+            </button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Cafe Spot Finder. All rights reserved.</p>
+        <div>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFavorite() {
+            const btn = document.querySelector('.favorite-btn');
+            const heart = btn.querySelector('.heart');
+            
+            if (heart.textContent === '♡') {
+                heart.textContent = '♥';
+                heart.style.color = '#a87544';
+                btn.innerHTML = '<span class="heart" style="color: #a87544;">♥</span> Added to Favorites';
+                alert('Bloom Cafe added to your favorites!');
+            } else {
+                heart.textContent = '♡';
+                heart.style.color = '#a87544';
+                btn.innerHTML = '<span class="heart" style="color: #a87544;">♡</span> Add to Favorites';
+                alert('Bloom Cafe removed from favorites.');
+            }
+        }
+
+        const images = [
+            { src: 'Interior.webp', alt: 'Bloom Cafe Interior' },
+            { src: 'Seats.webp', alt: 'Bloom Cafe Seating Area' },
+            { src: 'Food.webp', alt: 'Bloom Cafe Food' },
+            { src: 'Exterior.webp', alt: 'Bloom Cafe Exterior' }
+        ];
+        let currentImageIndex = 0;
+
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            if (currentImageIndex >= images.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = images.length - 1;
+            }
+            
+            const carouselImage = document.getElementById('carouselImage');
+            carouselImage.src = images[currentImageIndex].src;
+            carouselImage.alt = images[currentImageIndex].alt;
+            
+            document.getElementById('imageCounter').textContent = `${currentImageIndex + 1} / ${images.length}`;
+        }
+
+        function enlargeImage() {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            
+            modal.style.display = 'block';
+            modalImage.src = images[currentImageIndex].src;
+            modalImage.alt = images[currentImageIndex].alt;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        function makeReservation() {
+            alert('Reservation system coming soon! Please call the cafe directly at (416) 555-BLOOM to make a reservation.');
+        }
+    </script>
+
+    <style>
+        header {
+            border-bottom: none !important;
+        }
+        
+        .cafe-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 32px;
+            position: relative;
+        }
+
+        .cafe-header h1 {
+            color: #2c1b1b;
+            margin: 0;
+            text-align: center;
+            font-size: 36px;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            right: 32px;
+        }
+
+        .favorite-btn {
+            background-color: #d8bfa4;
+            border: none;
+            padding: 13px 24px;
+            border-radius: 8px;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .favorite-btn:hover {
+            background-color: #c6a98c;
+        }
+
+        .heart {
+            color: #a87544;
+            font-size: 19px;
+        }
+
+        .cafe-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            padding: 32px;
+            background-color: #fff8f2;
+        }
+
+        .basic-info p {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .availability-status {
+            background-color: #fdfaf5;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: fit-content;
+            min-height: 200px;
+        }
+
+        .status-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background-color: #f5eadd;
+            border-radius: 6px;
+        }
+
+        .status-value.available {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .status-value.moderate {
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        .last-updated {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .photo-section {
+            padding: 32px;
+            text-align: center;
+        }
+
+        .photo-carousel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .carousel-container img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .carousel-container img:hover {
+            transform: scale(1.02);
+        }
+
+        .carousel-btn {
+            background-color: #a87544;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-btn:hover {
+            background-color: #895d30;
+        }
+
+        .image-counter {
+            margin-top: 16px;
+            font-weight: 500;
+            color: #3b2f2f;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            cursor: pointer;
+        }
+
+        .modal-content {
+            display: block;
+            margin: auto;
+            max-width: 90%;
+            max-height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: #ccc;
+        }
+
+        .reservation-btn {
+            background-color: #a87544;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 500;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 16px;
+        }
+
+        .reservation-btn:hover {
+            background-color: #895d30;
+        }
+
+        .reservation-section {
+            padding: 32px;
+            text-align: center;
+            background-color: #fdf6f0;
+        }
+
+        @media (max-width: 768px) {
+            .cafe-header {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .cafe-info {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</body>
+</html>
