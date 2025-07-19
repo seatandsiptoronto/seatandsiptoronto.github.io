@@ -56,16 +56,16 @@
             </div>
         </div>
 
-        <section class="photo-section">
+        <section id="photo-gallery-section" class="photo-section">
             <h3>Photo Gallery</h3>
-            <div class="photo-carousel">
-                <button class="carousel-btn prev-btn" onclick="changeImage(-1)">❮</button>
-                <div class="carousel-container">
+            <div id="photo-carousel" class="photo-carousel">
+                <button id="prev-button" class="carousel-btn prev-btn" onclick="changeImage(-1)">❮</button>
+                <div id="carousel-container" class="carousel-container">
                     <img id="carouselImage" src="Interior.webp" alt="Bloom Cafe Interior" onclick="enlargeImage()" />
                 </div>
-                <button class="carousel-btn next-btn" onclick="changeImage(1)">❯</button>
+                <button id="next-button" class="carousel-btn next-btn" onclick="changeImage(1)">❯</button>
             </div>
-            <div class="image-counter">
+            <div id="image-counter-container" class="image-counter">
                 <span id="imageCounter">1 / 4</span>
             </div>
         </section>
@@ -77,9 +77,9 @@
         </div>
 
         <section class="reservation-section">
-            <button class="reservation-btn" onclick="makeReservation()">
+            <a href="../../my-reservations/index.html" class="reservation-btn">
                 Make Reservation
-            </button>
+            </a>
         </section>
     </main>
 
@@ -403,12 +403,12 @@
             font-style: italic;
         }
 
-        .photo-section {
+        #photo-gallery-section {
             padding: 32px;
             text-align: center;
         }
 
-        .photo-carousel {
+        #photo-carousel {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -416,13 +416,13 @@
             margin: 32px 0;
         }
 
-        .carousel-container {
+        #carousel-container {
             position: relative;
             max-width: 500px;
             width: 100%;
         }
 
-        .carousel-container img {
+        #carouselImage {
             width: 100%;
             height: 300px;
             object-fit: cover;
@@ -432,11 +432,11 @@
             transition: transform 0.3s ease;
         }
 
-        .carousel-container img:hover {
+        #carouselImage:hover {
             transform: scale(1.02);
         }
 
-        .carousel-btn {
+        #prev-button, #next-button {
             background-color: #a87544;
             color: white;
             border: none;
@@ -451,11 +451,11 @@
             justify-content: center;
         }
 
-        .carousel-btn:hover {
+        #prev-button:hover, #next-button:hover {
             background-color: #895d30;
         }
 
-        .image-counter {
+        #image-counter-container {
             margin-top: 16px;
             font-weight: 500;
             color: #3b2f2f;
@@ -511,6 +511,8 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin: 16px;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .reservation-btn:hover {
