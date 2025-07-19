@@ -1,0 +1,68 @@
+{
+  "bloom": {
+    "id": "bloom",
+    "name": "Bloom Cafe",
+    "address": "596 Yonge St, Toronto, ON M4Y 1Z3",
+    "phone": "(416) 792-0419",
+    "hours": "Monday-Sunday 9:00 AM - 10:00 PM",
+    "website": "https://thebloomcafe.ca/",
+    "about": "A cozy neighborhood cafe serving artisanal coffee and fresh pastries in a warm, welcoming atmosphere perfect for work or relaxation.",
+    "amenities": "free Wi-Fi, indoor seating, wheelchair accessibility, and a gender-neutral washroom",
+    "status": {
+      "seats": { "available": 8, "total": 15 },
+      "outlets": { "available": 5, "total": 8 },
+      "noise": "Moderate",
+      "lastUpdated": "5 minutes ago"
+    },
+    "images": [
+      { "src": "Interior.webp", "alt": "Bloom Cafe Interior" },
+      { "src": "Seats.webp", "alt": "Bloom Cafe Seating Area" },
+      { "src": "Food.webp", "alt": "Bloom Cafe Food" },
+      { "src": "Exterior.webp", "alt": "Bloom Cafe Exterior" }
+    ]
+  },
+  "balzac": {
+    "id": "balzac",
+    "name": "Balzac's Coffee Roasters",
+    "address": "215 King St W, Toronto, ON M5H 3M2",
+    "phone": "(416) 977-1608",
+    "hours": "Monday-Friday 6:30 AM - 9:00 PM, Saturday-Sunday 7:00 AM - 9:00 PM",
+    "website": "https://balzacs.com/",
+    "about": "Premium coffee roasters with a focus on fair trade and organic beans, offering a sophisticated coffee experience in downtown Toronto.",
+    "amenities": "Free WiFi, Power Outlets, Outdoor Seating, Takeaway Available, Card Payment Accepted",
+    "status": {
+      "seats": { "available": 12, "total": 20 },
+      "outlets": { "available": 6, "total": 10 },
+      "noise": "Quiet",
+      "lastUpdated": "2 minutes ago"
+    },
+    "images": [
+      { "src": "Interior.webp", "alt": "Balzac's Interior" },
+      { "src": "Seats.webp", "alt": "Balzac's Seating Area" },
+      { "src": "Food.webp", "alt": "Balzac's Coffee" },
+      { "src": "Exterior.webp", "alt": "Balzac's Exterior" }
+    ]
+  },
+  "fusettes": {
+    "id": "fusettes",
+    "name": "Fusettes Cafe",
+    "address": "438 Danforth Ave, Toronto, ON M4K 1P3",
+    "phone": "(416) 466-8181",
+    "hours": "Monday-Friday 7:00 AM - 7:00 PM, Saturday-Sunday 8:00 AM - 6:00 PM",
+    "website": "https://fusettes.ca/",
+    "about": "European-style cafe with authentic French pastries and artisanal coffee in the heart of Greektown.",
+    "amenities": "Free WiFi, Limited Power Outlets, Outdoor Patio, French Pastries, Cash & Card Accepted",
+    "status": {
+      "seats": { "available": 6, "total": 12 },
+      "outlets": { "available": 2, "total": 4 },
+      "noise": "Loud",
+      "lastUpdated": "8 minutes ago"
+    },
+    "images": [
+      { "src": "Interior.webp", "alt": "Fusettes Interior" },
+      { "src": "Seats.webp", "alt": "Fusettes Seating Area" },
+      { "src": "Food.webp", "alt": "Fusettes Pastries" },
+      { "src": "Exterior.webp", "alt": "Fusettes Exterior" }
+    ]
+  }
+}

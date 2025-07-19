@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloon Cafe - Cafe Spot Finder</title>
+    <title id="page-title">Loading... - Cafe Spot Finder</title>
     <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
@@ -19,7 +19,7 @@
 
     <main>
         <section class="cafe-header">
-            <h1>Bloom Cafe</h1>
+            <h1 id="cafe-name">Loading...</h1>
             <button class="favorite-btn" onclick="toggleFavorite()">
                 <span class="heart">♡</span> Add to Favorites
             </button>
@@ -28,12 +28,12 @@
         <div class="cafe-info">
             <div class="basic-info">
                 <h2>Cafe Information</h2>
-                <p>Address: 596 Yonge St, Toronto, ON M4Y 1Z3</p>
-                <p><strong>Phone:</strong> (416) 792-0419</p>
-                <p><strong>Hours:</strong> Monday-Sunday 9:00 AM - 10:00 PM</p>
-                <p><strong>Website:</strong> <a href="https://thebloomcafe.ca/" target="_blank">www.bloomcafe.ca</a></p>
-                <p><strong>About:</strong> A cozy neighborhood cafe serving artisanal coffee and fresh pastries in a warm, welcoming atmosphere perfect for work or relaxation.</p>
-                <p><strong>Amenities:</strong> free Wi-Fi, indoor seating, wheelchair accessibility, and a gender-neutral washroom</p>
+                <p id="cafe-address"><strong>Address:</strong> Loading...</p>
+                <p id="cafe-phone"><strong>Phone:</strong> Loading...</p>
+                <p id="cafe-hours"><strong>Hours:</strong> Loading...</p>
+                <p id="cafe-website"><strong>Website:</strong> <a href="#" target="_blank">Loading...</a></p>
+                <p id="cafe-about"><strong>About:</strong> Loading...</p>
+                <p id="cafe-amenities"><strong>Amenities:</strong> Loading...</p>
             </div>
 
             <div class="availability-status">
@@ -41,18 +41,18 @@
                 <div class="status-grid">
                     <div class="status-item">
                         <span class="status-label">Seats Available:</span>
-                        <span class="status-value available">8/15</span>
+                        <span id="seats-status" class="status-value available">Loading...</span>
                     </div>
                     <div class="status-item">
                         <span class="status-label">Power Outlets:</span>
-                        <span class="status-value available">5/8</span>
+                        <span id="outlets-status" class="status-value available">Loading...</span>
                     </div>
                     <div class="status-item">
                         <span class="status-label">Noise Level:</span>
-                        <span class="status-value moderate">Moderate</span>
+                        <span id="noise-status" class="status-value moderate">Loading...</span>
                     </div>
                 </div>
-                <p class="last-updated">Last updated 5 minutes ago</p>
+                <p id="last-updated" class="last-updated">Loading...</p>
             </div>
         </div>
 
@@ -93,7 +93,145 @@
     </footer>
 
     <script>
+        let currentCafe = null;
+        let images = [];
+        let currentImageIndex = 0;
+
+        // Get cafe ID from URL parameters
+        function getCafeIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id') || 'Le Génie'; // Default to bloom if no ID provided
+        }
+
+        // Cafe data (embedded to avoid CORS issues)
+        const cafesData = {
+            "bloom": {
+                "id": "bloom",
+                "name": "Bloom Cafe",
+                "address": "596 Yonge St, Toronto, ON M4Y 1Z3",
+                "phone": "(416) 792-0419",
+                "hours": "Monday-Sunday 9:00 AM - 10:00 PM",
+                "website": "https://thebloomcafe.ca/",
+                "about": "A cozy neighborhood cafe serving artisanal coffee and fresh pastries in a warm, welcoming atmosphere perfect for work or relaxation.",
+                "amenities": "free Wi-Fi, indoor seating, wheelchair accessibility, and a gender-neutral washroom",
+                "status": {
+                    "seats": { "available": 8, "total": 15 },
+                    "outlets": { "available": 5, "total": 8 },
+                    "noise": "Moderate",
+                    "lastUpdated": "5 minutes ago"
+                },
+                "images": [
+                    { "src": "Interior.webp", "alt": "Bloom Cafe Interior" },
+                    { "src": "Seats.webp", "alt": "Bloom Cafe Seating Area" },
+                    { "src": "Food.webp", "alt": "Bloom Cafe Food" },
+                    { "src": "Exterior.webp", "alt": "Bloom Cafe Exterior" }
+                ]
+            },
+            "Good Earth": {
+                "id": "Good Earth",
+                "name": "Good Earth Coffeehouse",
+                "address": "8 Wellesley St E unit 102, Toronto, ON M4Y 3B2",
+                "phone": "(416) 964-0112",
+                "hours": "Monday-Friday 6:00 AM - 8:00 PM, Saturday-Sunday 7:00 AM - 8:00 PM",
+                "website": "https://goodearthcoffeehouse.com/",
+                "about": "The coffee we serve is selected for both exceptional taste and for the positive impact our purchases can create. With our roaster, we search for coffee farms where sustainability and social responsibility are practiced. We also look for Rainforest Alliance, Fair Trade and Organic certifications.",
+                "amenities": "Free WiFi, Power Outlets, indoor Seating, Takeaway Available, Card Payment Accepted, Washroom",
+                "status": {
+                    "seats": { "available": 12, "total": 20 },
+                    "outlets": { "available": 6, "total": 10 },
+                    "noise": "Quiet",
+                    "lastUpdated": "2 minutes ago"
+                },
+                "images": [
+                    { "src": "GoodE_exterior.webp", "alt": "GoodE_exterior" },
+                    { "src": "GoodE_food.webp", "alt": "GoodE_food" },
+                    { "src": "GoodE_interior.webp", "alt": "GoodE_interior" },
+                    { "src": "GoodE_menu.webp", "alt": "GoodE_menu" }
+                ]
+            },
+            "Le Génie": {
+                "id": "Le Génie",
+                "name": "Le Génie Bakery & Espresso",
+                "address": "382 Yonge St First Floor, Toronto, ON M5B 1S8",
+                "phone": "(416) 546-8578",
+                "hours": "Monday Closed, Tuesday-Thursday 7:30 AM - 6:30 PM, Friday 7:30 AM - 7:00 PM, Saturday 9:00 AM - 7:00 PM, Sunday 9:00 AM - 6:30 PM",
+                "website": "https://www.le-genie.ca/",
+                "about": "At Le Genie, our commitment to excellence extends beyond our masterful pastries to an exceptional coffee experience that rivals the finest in the world. We proudly serve beans from Tim Wendelboe, a world champion roaster, bringing his unparalleled expertise to every cup. ",
+                "amenities": "Free WiFi, Power Outlets, Outdoor Patio, Indoor Seating, Cash & Card Accepted, Washroom",
+                "status": {
+                    "seats": { "available": 6, "total": 12 },
+                    "outlets": { "available": 2, "total": 4 },
+                    "noise": "Loud",
+                    "lastUpdated": "8 minutes ago"
+                },
+                "images": [
+                    { "src": "Le_exterior.webp", "alt": "Le_exterior" },
+                    { "src": "Le_food.webp", "alt": "Le_food" },
+                    { "src": "Le_interior.webp", "alt": "Le_interior" },
+                    { "src": "Le_menu.webp", "alt": "Le_menu" }
+                ]
+            }
+        };
+
+        // Load cafe data from embedded data
+        function loadCafeData() {
+            try {
+                const cafeId = getCafeIdFromURL();
+                
+                if (cafesData[cafeId]) {
+                    currentCafe = cafesData[cafeId];
+                    populateCafeData(currentCafe);
+                } else {
+                    showError('Cafe not found');
+                }
+            } catch (error) {
+                console.error('Error loading cafe data:', error);
+                showError('Error loading cafe data');
+            }
+        }
+
+        // Populate page with cafe data
+        function populateCafeData(cafe) {
+            // Update page title
+            document.getElementById('page-title').textContent = `${cafe.name} - Cafe Spot Finder`;
+            
+            // Update cafe information
+            document.getElementById('cafe-name').textContent = cafe.name;
+            document.getElementById('cafe-address').innerHTML = `<strong>Address:</strong> ${cafe.address}`;
+            document.getElementById('cafe-phone').innerHTML = `<strong>Phone:</strong> ${cafe.phone}`;
+            document.getElementById('cafe-hours').innerHTML = `<strong>Hours:</strong> ${cafe.hours}`;
+            document.getElementById('cafe-website').innerHTML = `<strong>Website:</strong> <a href="${cafe.website}" target="_blank">${cafe.website}</a>`;
+            document.getElementById('cafe-about').innerHTML = `<strong>About:</strong> ${cafe.about}`;
+            document.getElementById('cafe-amenities').innerHTML = `<strong>Amenities:</strong> ${cafe.amenities}`;
+            
+            // Update status information
+            document.getElementById('seats-status').textContent = `${cafe.status.seats.available}/${cafe.status.seats.total}`;
+            document.getElementById('outlets-status').textContent = `${cafe.status.outlets.available}/${cafe.status.outlets.total}`;
+            
+            const noiseElement = document.getElementById('noise-status');
+            noiseElement.textContent = cafe.status.noise;
+            noiseElement.className = `status-value ${cafe.status.noise.toLowerCase()}`;
+            
+            document.getElementById('last-updated').textContent = `Last updated ${cafe.status.lastUpdated}`;
+            
+            // Update images
+            images = cafe.images;
+            if (images.length > 0) {
+                const carouselImage = document.getElementById('carouselImage');
+                carouselImage.src = images[0].src;
+                carouselImage.alt = images[0].alt;
+                document.getElementById('imageCounter').textContent = `1 / ${images.length}`;
+            }
+        }
+
+        function showError(message) {
+            document.getElementById('cafe-name').textContent = 'Error';
+            document.getElementById('cafe-address').innerHTML = `<strong>Error:</strong> ${message}`;
+        }
+
         function toggleFavorite() {
+            if (!currentCafe) return;
+            
             const btn = document.querySelector('.favorite-btn');
             const heart = btn.querySelector('.heart');
             
@@ -101,24 +239,18 @@
                 heart.textContent = '♥';
                 heart.style.color = '#a87544';
                 btn.innerHTML = '<span class="heart" style="color: #a87544;">♥</span> Added to Favorites';
-                alert('Bloom Cafe added to your favorites!');
+                alert(`${currentCafe.name} added to your favorites!`);
             } else {
                 heart.textContent = '♡';
                 heart.style.color = '#a87544';
                 btn.innerHTML = '<span class="heart" style="color: #a87544;">♡</span> Add to Favorites';
-                alert('Bloom Cafe removed from favorites.');
+                alert(`${currentCafe.name} removed from favorites.`);
             }
         }
 
-        const images = [
-            { src: 'Interior.webp', alt: 'Bloom Cafe Interior' },
-            { src: 'Seats.webp', alt: 'Bloom Cafe Seating Area' },
-            { src: 'Food.webp', alt: 'Bloom Cafe Food' },
-            { src: 'Exterior.webp', alt: 'Bloom Cafe Exterior' }
-        ];
-        let currentImageIndex = 0;
-
         function changeImage(direction) {
+            if (images.length === 0) return;
+            
             currentImageIndex += direction;
             if (currentImageIndex >= images.length) {
                 currentImageIndex = 0;
@@ -134,6 +266,8 @@
         }
 
         function enlargeImage() {
+            if (images.length === 0) return;
+            
             const modal = document.getElementById('imageModal');
             const modalImage = document.getElementById('modalImage');
             
@@ -147,8 +281,12 @@
         }
 
         function makeReservation() {
-            alert('Reservation system coming soon! Please call the cafe directly at (416) 555-BLOOM to make a reservation.');
+            if (!currentCafe) return;
+            alert(`Reservation system coming soon! Please call ${currentCafe.name} directly at ${currentCafe.phone} to make a reservation.`);
         }
+
+        // Load cafe data when page loads
+        document.addEventListener('DOMContentLoaded', loadCafeData);
     </script>
 
     <style>
@@ -244,6 +382,16 @@
 
         .status-value.moderate {
             color: #ffc107;
+            font-weight: 600;
+        }
+
+        .status-value.quiet {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .status-value.loud {
+            color: #dc3545;
             font-weight: 600;
         }
 
