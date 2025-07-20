@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Café Spot Finder - Find Your Spot</title>
-    <!-- Tailwind CSS CDN for easy styling -->
+    <!-- Link to the main CSS file at the root level -->
+    <link rel="stylesheet" href="../css/styles.css" />
+    <!-- Google Fonts from Charlotte's index.html for consistency -->
+    <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&family=Lexend:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN for easy styling (if not already in styles.css) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom styles for the Inter font and overall page */
+        /* Custom styles for the Inter font and overall page (if not in styles.css) */
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Lexend', sans-serif; /* Using Lexend as per Charlotte's index.html */
             background-color: #f8f5f0; /* Soft off-white background */
             min-height: 100vh; /* Ensure full viewport height */
             display: flex; /* Use flexbox for vertical centering */
@@ -23,19 +26,56 @@
             align-items: center; /* Center vertically */
             justify-content: center; /* Center horizontally */
         }
+        /* Header and Footer styles (if not fully handled by styles.css) */
+        header {
+            background-color: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+        header h1 {
+            font-family: 'DynaPuff', cursive;
+            font-size: 1.8rem;
+            color: #8B4513; /* SaddleBrown for coffee theme */
+        }
+        header nav a {
+            margin-left: 1rem;
+            color: #555;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        header nav a:hover {
+            color: #A0522D; /* Sienna */
+        }
+        footer {
+            background-color: #f0f0f0;
+            padding: 1rem;
+            text-align: center;
+            color: #777;
+            font-size: 0.9rem;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            margin-top: auto; /* Pushes footer to the bottom */
+        }
     </style>
 </head>
 <body class="text-gray-800">
-    <!-- Header Section -->
-    <header class="bg-white shadow-sm p-4 md:p-6 flex justify-between items-center rounded-b-lg">
-        <h1 class="text-2xl md:text-3xl font-bold text-amber-800">Café Spot Finder</h1>
+    <!-- Header Section (Copied from Charlotte's index.html for consistency) -->
+    <header>
+        <h1>☕ Seat and Sip Toronto</h1>
         <nav>
-            <ul class="flex space-x-4 md:space-x-6">
-                <li><a href="index.html" class="text-gray-700 hover:text-amber-600 font-semibold transition duration-300">Search</a></li>
-                <li><a href="my-reservations.html" class="text-gray-700 hover:text-amber-600 font-semibold transition duration-300">My Reservations</a></li>
-                <li><a href="login.html" class="text-gray-700 hover:text-amber-600 font-semibold transition duration-300">Login</a></li>
-                <li><a href="register-user.html" class="text-gray-700 hover:text-amber-600 font-semibold transition duration-300">Register</a></li>
-            </ul>
+            <!-- Paths adjusted to go up one level (../) to the root directory -->
+            <a href="../register-user/index.html">📝 Register</a>
+            <a href="../login/index.html">🔐 Login</a>
+            <a href="../search/index.html">🔍 Search</a> <!-- Link to THIS page -->
+            <a href="../my-reservations/index.html">📅 My Reservations</a>
+            <a href="../my-favorites/index.html">❤️ My Favorites</a>
+            <a href="../register-owner/index.html">🏪 Owner Register</a>
         </nav>
     </header>
 
@@ -55,16 +95,9 @@
         </div>
     </main>
 
-    <!-- Footer Section -->
-    <footer class="bg-gray-100 p-4 md:p-6 text-center text-gray-600 text-sm rounded-t-lg shadow-inner mt-auto">
-        <p>&copy; 2025 Café Spot Finder. All rights reserved.</p>
-        <nav class="mt-2">
-            <ul class="flex justify-center space-x-4">
-                <li><a href="about.html" class="hover:text-amber-600 transition duration-300">About Us</a></li>
-                <li><a href="contact.html" class="hover:text-amber-600 transition duration-300">Contact</a></li>
-                <li><a href="how-it-works.html" class="hover:text-amber-600 transition duration-300">How It Works</a></li>
-            </ul>
-        </nav>
+    <!-- Footer Section (Copied from Charlotte's index.html for consistency) -->
+    <footer>
+        <p>❤️ Made with love from Toronto</p>
     </footer>
 
     <!-- JavaScript for search functionality -->
@@ -79,12 +112,10 @@
 
             // Check if the input is not empty
             if (location) {
-                // Redirect to results.html, passing the location as a URL query parameter
-                // encodeURIComponent ensures special characters in the location are handled correctly
+                // Redirect to results.html, which is in the SAME 'search/' folder
                 window.location.href = `results.html?location=${encodeURIComponent(location)}`;
             } else {
                 // Optionally, provide feedback if the input is empty
-                // For this project, we'll just do nothing if empty, or you could add a simple alert/message box
                 console.log("Please enter a location to search.");
                 // You could add a temporary message box here instead of console.log
                 // For example:
@@ -105,3 +136,4 @@
     </script>
 </body>
 </html>
+
