@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Spot Finder - Find Your Spot</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the Inter font and overall page */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f5f0; /* Soft off-white background */
+            min-height: 100vh; /* Ensure full viewport height */
+            display: flex; /* Use flexbox for vertical centering */
+            flex-direction: column; /* Stack header, main, footer vertically */
+        }
+        /* Styling for the main content area to center the search bar */
+        main {
+            flex-grow: 1; /* Allows main content to take available space */
+            display: flex;
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- Header Section -->
+    <header class="bg-white shadow-sm p-4 md:p-6 flex justify-between items-center rounded-b-lg">
+        <h1 class="text-2xl md:text-3xl font-bold text-amber-800">Café Spot Finder</h1>
+        <nav>
+            <ul class="flex space-x-4 md:space-x-6">
+                <li><a href="index.html" class="text-gray-700 hover:text-amber-600 font-semibold transition duration-300">Search</a></li>
+                <li><a href="my-reservations.html" class="text-gray-700 hover:text-amber-600 font-semibold transition duration-300">My Reservations</a></li>
+                <li><a href="login.html" class="text-gray-700 hover:text-amber-600 font-semibold transition duration-300">Login</a></li>
+                <li><a href="register-user.html" class="text-gray-700 hover:text-amber-600 font-semibold transition duration-300">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content - Search Bar Section -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="bg-white p-8 md:p-12 rounded-xl shadow-lg w-full max-w-xl text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-amber-700 mb-6">Find Your Perfect Café Spot</h2>
+            <p class="text-lg text-gray-600 mb-8">Enter a location to discover cafés with real-time (simulated) availability.</p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <input type="text" id="locationSearchInput" placeholder="e.g., Yonge St, Dundas St, King St"
+                       class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition duration-300 shadow-sm">
+                <button id="searchButton"
+                        class="bg-amber-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-amber-700 transition duration-300 shadow-md">
+                    Search Cafés
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-100 p-4 md:p-6 text-center text-gray-600 text-sm rounded-t-lg shadow-inner mt-auto">
+        <p>&copy; 2025 Café Spot Finder. All rights reserved.</p>
+        <nav class="mt-2">
+            <ul class="flex justify-center space-x-4">
+                <li><a href="about.html" class="hover:text-amber-600 transition duration-300">About Us</a></li>
+                <li><a href="contact.html" class="hover:text-amber-600 transition duration-300">Contact</a></li>
+                <li><a href="how-it-works.html" class="hover:text-amber-600 transition duration-300">How It Works</a></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <!-- JavaScript for search functionality -->
+    <script>
+        // Get references to the input field and button
+        const locationInput = document.getElementById('locationSearchInput');
+        const searchBtn = document.getElementById('searchButton');
+
+        // Function to handle the search action
+        function performSearch() {
+            const location = locationInput.value.trim(); // Get input value and remove whitespace
+
+            // Check if the input is not empty
+            if (location) {
+                // Redirect to results.html, passing the location as a URL query parameter
+                // encodeURIComponent ensures special characters in the location are handled correctly
+                window.location.href = `results.html?location=${encodeURIComponent(location)}`;
+            } else {
+                // Optionally, provide feedback if the input is empty
+                // For this project, we'll just do nothing if empty, or you could add a simple alert/message box
+                console.log("Please enter a location to search.");
+                // You could add a temporary message box here instead of console.log
+                // For example:
+                // alert("Please enter a location to search.");
+            }
+        }
+
+        // Add event listener to the search button for click events
+        searchBtn.addEventListener('click', performSearch);
+
+        // Add event listener to the input field for 'Enter' key press
+        locationInput.addEventListener('keypress', function(event) {
+            // Check if the pressed key is 'Enter' (key code 13 or 'Enter')
+            if (event.key === 'Enter') {
+                performSearch(); // Call the search function
+            }
+        });
+    </script>
+</body>
+</html>
