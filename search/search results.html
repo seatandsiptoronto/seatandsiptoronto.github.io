@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Spot Finder - Search Results</title>
+    <!-- Link to the main CSS file at the root level -->
+    <link rel="stylesheet" href="../css/styles.css" />
+    <!-- Google Fonts from Charlotte's index.html for consistency -->
+    <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&family=Lexend:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the Inter font and overall page (if not in styles.css) */
+        body {
+            font-family: 'Lexend', sans-serif; /* Using Lexend as per Charlotte's index.html */
+            background-color: #f8f5f0; /* Soft off-white background */
+            min-height: 100vh; /* Ensure full viewport height */
+            display: flex; /* Use flexbox for vertical centering */
+            flex-direction: column; /* Stack header, main, footer vertically */
+        }
+        /* Styling for the main content area */
+        main {
+            flex-grow: 1; /* Allows main content to take available space */
+        }
+        /* Custom colors for availability indicators */
+        .status-high { color: #22c55e; } /* Green */
+        .status-moderate { color: #facc15; } /* Yellow */
+        .status-low { color: #ef4444; } /* Red */
+
+        /* Header and Footer styles (if not fully handled by styles.css) */
+        header {
+            background-color: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+        header h1 {
+            font-family: 'DynaPuff', cursive;
+            font-size: 1.8rem;
+            color: #8B4513; /* SaddleBrown for coffee theme */
+        }
+        header nav a {
+            margin-left: 1rem;
+            color: #555;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        header nav a:hover {
+            color: #A0522D; /* Sienna */
+        }
+        footer {
+            background-color: #f0f0f0;
+            padding: 1rem;
+            text-align: center;
+            color: #777;
+            font-size: 0.9rem;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            margin-top: auto; /* Pushes footer to the bottom */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- Header Section (Copied from Charlotte's index.html for consistency) -->
+    <header>
+        <h1>☕ Seat and Sip Toronto</h1>
+        <nav>
+            <!-- Paths adjusted to go up one level (../) to the root directory -->
+            <a href="../register-user/index.html">📝 Register</a>
+            <a href="../login/index.html">🔐 Login</a>
+            <a href="../search/index.html">🔍 Search</a> <!-- Link back to search page -->
+            <a href="../my-reservations/index.html">📅 My Reservations</a>
+            <a href="../my-favorites/index.html">❤️ My Favorites</a>
+            <a href="../register-owner/index.html">🏪 Owner Register</a>
+        </nav>
+    </header>
+
+    <!-- Main Content - Search Results Section -->
+    <main class="container mx-auto px-4 py-8">
+        <h2 id="resultsHeading" class="text-3xl md:text-4xl font-bold text-amber-700 mb-8 text-center"></h2>
+        <div id="cafeList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Café cards will be dynamically inserted here by JavaScript -->
+        </div>
+        <p id="noResultsMessage" class="text-center text-gray-600 text-lg mt-8 hidden">No cafés found for this location. Please try another search.</p>
+    </main>
+
+    <!-- Footer Section (Copied from Charlotte's index.html for consistency) -->
+    <footer>
+        <p>❤️ Made with love from Toronto</p>
+    </footer>
+
+    <!-- JavaScript for displaying search results -->
+    <script>
+        // Hardcoded Café Data (This will act as your "database")
+        // This array should be consistent across all pages that need café data
+        const allCafes = [
+            {
+                id: 'bloom-cafe',
+                name: 'Bloom Cafe',
+                location: 'Yonge St',
+                address: '596 Yonge St, Toronto, ON M4Y 1Z3',
+                phone: '(416) 792-0419',
+                hours: 'Monday-Sunday 9:00 AM - 10:00 PM',
+                website: 'www.bloomcafe.ca',
+                description: 'A cozy neighborhood cafe serving artisanal coffee and fresh pastries in a warm, welcoming atmosphere perfect for work or relaxation.',
+                amenities: ['Free Wi-Fi', 'Indoor Seating', 'Wheelchair Accessibility', 'Gender-Neutral Washroom'],
+                simulatedSeatsAvailable: 'Many Seats Available', // Can be 'Many Seats Available', 'Few Seats Left', 'Full'
+                simulatedNoiseLevel: 'Moderate', // Can be 'Quiet', 'Moderate', 'Bustling'
+                simulatedPowerOutlets: 'Good Access', // Can be 'Good Access', 'Limited Access', 'No Access'
+                imageUrl: 'https://placehold.co/400x250/E0BBE4/FFFFFF?text=Bloom+Cafe', // Placeholder image
+                category: 'Cozy', // Example category for Mint's user story
+                totalSeats: 15,
+                seatsOccupied: 7 // Example for tijung_hou's detail page
+            },
+            {
+                id: 'coffee-haven',
+                name: 'Coffee Haven',
+                location: 'Dundas St',
+                address: '123 Dundas St W, Toronto, ON M5G 1C3',
+                phone: '(416) 555-1234',
+                hours: 'Monday-Friday 7:00 AM - 6:00 PM',
+                website: 'www.coffeehaven.com',
+                description: 'A vibrant cafe known for its strong espresso and bustling atmosphere, ideal for quick meetings.',
+                amenities: ['Free Wi-Fi', 'Outdoor Seating', 'Pet-Friendly'],
+                simulatedSeatsAvailable: 'Few Seats Left',
+                simulatedNoiseLevel: 'Bustling',
+                simulatedPowerOutlets: 'Limited Access',
+                imageUrl: 'https://placehold.co/400x250/957DAD/FFFFFF?text=Coffee+Haven',
+                category: 'Vibrant',
+                totalSeats: 20,
+                seatsOccupied: 18
+            },
+            {
+                id: 'quiet-corner',
+                name: 'Quiet Corner Cafe',
+                location: 'King St',
+                address: '456 King St E, Toronto, ON M5A 1J5',
+                phone: '(416) 987-6543',
+                hours: 'Tuesday-Sunday 8:00 AM - 5:00 PM',
+                website: 'www.quietcorner.ca',
+                description: 'A serene spot perfect for focused work or quiet reading, with ample natural light.',
+                amenities: ['Free Wi-Fi', 'Quiet Zone', 'Comfortable Seating'],
+                simulatedSeatsAvailable: 'Many Seats Available',
+                simulatedNoiseLevel: 'Quiet',
+                simulatedPowerOutlets: 'Good Access',
+                imageUrl: 'https://placehold.co/400x250/FFC72C/FFFFFF?text=Quiet+Corner',
+                category: 'Study',
+                totalSeats: 10,
+                seatsOccupied: 2
+            },
+            {
+                id: 'urban-brew',
+                name: 'Urban Brew',
+                location: 'Yonge St',
+                address: '789 Yonge St, Toronto, ON M4W 1J2',
+                phone: '(416) 111-2222',
+                hours: 'Everyday 6:30 AM - 9:00 PM',
+                website: 'www.urbanbrew.com',
+                description: 'Modern cafe with a minimalist design, popular for its specialty pour-overs.',
+                amenities: ['Free Wi-Fi', 'Bar Seating', 'Fast Service'],
+                simulatedSeatsAvailable: 'Full',
+                simulatedNoiseLevel: 'Moderate',
+                simulatedPowerOutlets: 'Limited Access',
+                imageUrl: 'https://placehold.co/400x250/C4F0C5/000000?text=Urban+Brew',
+                category: 'Modern',
+                totalSeats: 12,
+                seatsOccupied: 12
+            },
+            {
+                id: 'the-study-spot',
+                name: 'The Study Spot',
+                location: 'Dundas St',
+                address: '789 Dundas St W, Toronto, ON M6J 1V9',
+                phone: '(416) 333-4444',
+                hours: 'Mon-Sat 9:00 AM - 8:00 PM',
+                website: 'www.studyspot.ca',
+                description: 'Dedicated study cafe with large tables and plenty of power outlets.',
+                amenities: ['Free Wi-Fi', 'Plenty of Power Outlets', 'Large Tables'],
+                simulatedSeatsAvailable: 'Few Seats Left',
+                simulatedNoiseLevel: 'Quiet',
+                simulatedPowerOutlets: 'Good Access',
+                imageUrl: 'https://placehold.co/400x250/A7BED3/000000?text=The+Study+Spot',
+                category: 'Study',
+                totalSeats: 18,
+                seatsOccupied: 15
+            }
+        ];
+
+        // Get references to HTML elements
+        const resultsHeading = document.getElementById('resultsHeading');
+        const cafeListContainer = document.getElementById('cafeList');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Function to get query parameters from the URL
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            for (const [key, value] of urlParams.entries()) {
+                params[key] = value;
+            }
+            return params;
+        }
+
+        // Function to display cafés
+        function displayCafes(cafesToDisplay, searchedLocation) {
+            cafeListContainer.innerHTML = ''; // Clear previous results
+            noResultsMessage.classList.add('hidden'); // Hide no results message by default
+
+            // Update the heading to reflect the search
+            if (searchedLocation) {
+                resultsHeading.textContent = `Cafés near "${searchedLocation}"`;
+            } else {
+                resultsHeading.textContent = `All Cafés`; // Fallback if no location searched
+            }
+
+            if (cafesToDisplay.length === 0) {
+                noResultsMessage.classList.remove('hidden');
+                return;
+            }
+
+            cafesToDisplay.forEach(cafe => {
+                let seatsColorClass = '';
+                if (cafe.simulatedSeatsAvailable === 'Many Seats Available') {
+                    seatsColorClass = 'status-high';
+                } else if (cafe.simulatedSeatsAvailable === 'Few Seats Left') {
+                    seatsColorClass = 'status-moderate';
+                } else {
+                    seatsColorClass = 'status-low';
+                }
+
+                let noiseColorClass = '';
+                if (cafe.simulatedNoiseLevel === 'Quiet') {
+                    noiseColorClass = 'status-high';
+                } else if (cafe.simulatedNoiseLevel === 'Moderate') {
+                    noiseColorClass = 'status-moderate';
+                } else {
+                    noiseColorClass = 'status-low';
+                }
+
+                const cafeCard = document.createElement('div');
+                cafeCard.className = 'bg-white rounded-xl shadow-md overflow-hidden transform transition duration-300 hover:scale-105 cursor-pointer';
+
+                cafeCard.innerHTML = `
+                    <img src="${cafe.imageUrl}" alt="${cafe.name}" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-amber-800 mb-2">${cafe.name}</h3>
+                        <p class="text-gray-600 text-sm mb-4">${cafe.address.split(',')[0]}</p>
+                        <div class="flex items-center text-sm mb-2">
+                            <span class="mr-2 text-gray-500">Seats:</span>
+                            <span class="font-medium ${seatsColorClass}">${cafe.simulatedSeatsAvailable}</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <span class="mr-2 text-gray-500">Noise:</span>
+                            <span class="font-medium ${noiseColorClass}">${cafe.simulatedNoiseLevel}</span>
+                        </div>
+                        <!-- Button to view details - this will navigate to cafe-detail.html -->
+                        <button class="mt-4 w-full bg-amber-500 text-white py-2 rounded-lg font-semibold hover:bg-amber-600 transition duration-300 shadow-sm view-details-btn" data-cafe-id="${cafe.id}">
+                            View Details
+                        </button>
+                    </div>
+                `;
+
+                const viewDetailsButton = cafeCard.querySelector('.view-details-btn');
+                viewDetailsButton.addEventListener('click', () => {
+                    // Path adjusted: Go up from 'search/' to root, then into 'cafe-details/' folder
+                    window.location.href = `../cafe-details/index.html?id=${cafe.id}`;
+                });
+
+                cafeListContainer.appendChild(cafeCard);
+            });
+        }
+
+        // --- Main execution logic when the page loads ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = getQueryParams();
+            const searchedLocation = params.location ? decodeURIComponent(params.location) : '';
+
+            let filteredCafes = [];
+
+            if (searchedLocation) {
+                filteredCafes = allCafes.filter(cafe =>
+                    cafe.location.toLowerCase().includes(searchedLocation.toLowerCase())
+                );
+            } else {
+                filteredCafes = allCafes;
+            }
+
+            displayCafes(filteredCafes, searchedLocation);
+        });
+    </script>
+</body>
+</html>
